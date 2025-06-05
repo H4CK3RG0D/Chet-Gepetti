@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chet Gepetti</title>
+    <link href="styles/tailwind_base.css" rel="stylesheet">
+    <script src="styles/tailwindcss.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
+    <style>
+        /* Custom styles for the Inter font and base body properties */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Background gradient for visual appeal */
+            background: linear-gradient(to bottom right, #eff6ff, #e0e7ff, #ede9fe); /* Tailwind equivalent: bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-100 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            /* Explicitly setting width and min-height for browser extension popup */
+            width: 320px; /* Common width for browser extension popups */
+            min-height: 400px; /* Give it a reasonable default height for content */
+            box-sizing: border-box; /* Include padding in the total width/height */
+        }
+
+        /* Keyframe for the loading spinner animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Apply the spin animation to elements with the 'animate-spin-custom' class */
+        .animate-spin-custom {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Keyframe for a subtle fade-in animation for the container */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Apply fade-in animation to the container */
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Keyframe for button ripple effect */
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Style for the ripple effect span */
+        .gaslight-button .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            animation: ripple 0.6s linear forwards;
+            pointer-events: none; /* Ensure clicks pass through */
+        }
+
+        /* Keyframe for settings panel slide-down animation */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-down {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="selection:bg-blue-200 selection:text-blue-800">
+    <div class="container bg-white p-5 rounded-3xl shadow-2xl flex flex-col gap-6 border border-gray-100 animate-fade-in w-full box-border">
+        <div class="header flex justify-between items-center w-full relative">
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight leading-tight flex-grow text-center pr-8">
+                Chet Gepetti
+            </h1>
+            <button id="settingsButton" class="absolute right-2 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 rounded-full p-1 transition-colors duration-200">
+                <i class="ph ph-gear text-2xl"></i> </button>
+        </div>
+
+        <div id="settingsPanel" class="hidden flex flex-col gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200 animate-slide-down">
+            <h2 class="text-lg font-semibold text-gray-700 text-center">OpenAI API Key</h2>
+            <input type="password" id="apiKeyInput" placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 text-gray-700 text-sm">
+            <div class="flex justify-end gap-2">
+                <button id="saveApiKeyButton" class="bg-blue-600 text-white px-3 py-1.5 rounded-md text-sm hover:bg-blue-700 transition-colors duration-200">Save</button>
+                <button id="cancelApiKeyButton" class="bg-gray-300 text-gray-800 px-3 py-1.5 rounded-md text-sm hover:bg-gray-400 transition-colors duration-200">Cancel</button>
+            </div>
+        </div>
+
+        <button id="gaslightButton" class="
+            gaslight-button
+            bg-gradient-to-r from-red-500 to-red-600
+            text-white font-bold py-4 px-5 rounded-2xl
+            text-xl
+            shadow-xl hover:shadow-2xl
+            transition-all duration-300 ease-in-out
+            transform hover:-translate-y-1 active:translate-y-0.5
+            focus:outline-none focus:ring-5 focus:ring-red-400 focus:ring-opacity-70
+            relative overflow-hidden group
+        ">
+            GASLIGHT ✨
+            <span class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300 ease-in-out pointer-events-none rounded-2xl"></span>
+        </button>
+
+        <div id="statusMessage" class="message text-sm text-gray-700 text-center min-h-[1.5rem] flex items-center justify-center font-medium">
+            </div>
+
+        <div id="responseDisplay" class="
+            response-box
+            bg-blue-50 border border-blue-200
+            p-4 rounded-xl
+            min-h-[120px]
+            overflow-y-auto text-sm
+            text-blue-800 leading-relaxed
+            shadow-inner-lg
+        ">
+            Chet's thoughts will appear here...
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
+
