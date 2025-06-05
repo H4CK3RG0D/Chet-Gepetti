@@ -18,9 +18,9 @@
 
     let seller = '';
     try {
-        const potentialSeller = document.querySelector('a[role="link"][href*="/marketplace/"]');
+        const potentialSellers = document.querySelectorAll('a[role="link"][href*="/marketplace/"]');
         
-        for (const link of potentialSeller) {
+        for (const link of potentialSellers) {
             const nameSpan = link.querySelector('span.x193iq5w, span');
 
             if (nameSpan) {
@@ -40,13 +40,14 @@
         }
 
         if (!seller) {
-            const containerSpans = document.querySelector('span[dir="auto"]');
-            if (containerSpans) {
-                const actualSellerLink = containerSpanWithDirAuto.querySelector('a[role="link"][href*="/marketplace/profile/"]');   
+            const containerSpans = document.querySelectorAll('span[dir="auto"]');
+            for (const containerSpan of containerSpans) {
+                const actualSellerLink = containerSpan.querySelector('a[role="link"][href*="/marketplace/profile/"]');   
                 if (actualSellerLink) {
                     const nameSpan = actualSellerLink.querySelector('span.x193iq5w, span');
                     if (nameSpan) {
                         seller = nameSpan.textContent.trim();
+                        break;   
                     }
                 }
             }
