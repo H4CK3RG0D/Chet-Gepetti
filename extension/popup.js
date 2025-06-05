@@ -82,9 +82,12 @@ async function autoTypeMessage(tabId, msg) {
         await chrome.scripting.executeScript({
             target: { tabId: tabId },
             func: (messageToType) => {
-                // Use the robust selector: textarea with specific aria-label and placeholder
-                const textarea = document.querySelector('textarea[aria-label="Send seller a message"][placeholder="Send a private message…"]');
-                
+                // Locate the message box. Facebook occasionally tweaks the placeholder
+                // text, so check by aria-label first and fall back to a more generic query.
+                const textarea =
+                    document.querySelector('textarea[aria-label="Send seller a message"]') ||
+                    document.querySelector('textarea[placeholder^="Send a"]');
+
                 if (!textarea) {
                     console.warn("❌ Textarea not found on Marketplace page.");
                     return; // Don't proceed if textarea is not found
