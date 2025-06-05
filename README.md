@@ -69,12 +69,6 @@ undetected-chromedriver
 selenium
 ```
 
-Node dependency for the extension build:
-
-```
-tailwindcss
-```
-
 ## License
 
 This project is released under the MIT License. See [LICENSE](LICENSE) for details.
