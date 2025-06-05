@@ -18,39 +18,25 @@
 
     let seller = '';
     try {
-        const potentialSellers = document.querySelectorAll('a[role="link"][href*="/marketplace/"]');
-        
-        for (const link of potentialSellers) {
-            const nameSpan = link.querySelector('span.x193iq5w, span');
+        // Prefer explicit profile links first
+        let links = document.querySelectorAll('a[href*="/marketplace/profile/"]');
+        if (!links.length) {
+            // Fallback to more generic marketplace links
+            links = document.querySelectorAll('a[role="link"][href*="/marketplace/"]');
+        }
 
-            if (nameSpan) {
-                const potentialName = nameSpan.textContent.trim();
-                if (potentialName.length > 2 && !potentialName.includes(" ") && !potentialName.toLowerCase().includes('details')) {
-                    if (link.textContent.trim() === potentialName) {
-                        seller = potentialName;
-                        break;
-                    }
-                } else if (potentialName.includes(" ")) {
-                    if (link.textContent.trim() === potentialName) {
-                        seller = potentialName;
-                        break;
-                    }
-                }
+        for (const link of links) {
+            const text = (link.querySelector('span.x193iq5w, span') || link).textContent.trim();
+            if (!text || text.toLowerCase().includes('browse all') || text.toLowerCase().includes('see more')) {
+                continue; // skip navigation links
             }
+
+            seller = text;
+            break;
         }
 
         if (!seller) {
-            const containerSpans = document.querySelectorAll('span[dir="auto"]');
-            for (const containerSpan of containerSpans) {
-                const actualSellerLink = containerSpan.querySelector('a[role="link"][href*="/marketplace/profile/"]');   
-                if (actualSellerLink) {
-                    const nameSpan = actualSellerLink.querySelector('span.x193iq5w, span');
-                    if (nameSpan) {
-                        seller = nameSpan.textContent.trim();
-                        break;   
-                    }
-                }
-            }
+            console.warn('❌ Seller name not found.');
         }
 
     } catch (e) {
