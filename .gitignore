@@ -1,4 +1,4 @@
 .env
-timeout_error.png
-debug.png
-timeout_final_error.png
+img/timeout_error.png
+img/debug.png
+img/timeout_final_error.png
