@@ -1,6 +1,6 @@
 # Chet-Gepetti
 
-Chet-Gepetti is a tongue-in-cheek Chrome extension that roasts Facebook Marketplace listings and fires back a lowball offer on your behalf. It grabs item details from the page, feeds them to OpenAI's API, and types the response directly into the chat box. Inspired by the comedic style of Michael Reeves, this project combines browser scripting with Python automation utilities.
+Chet-Gepetti is a tongue-in-cheek Chrome extension that roasts Facebook Marketplace listings and fires back a lowball offer on your behalf. It grabs item details from the page, feeds them to OpenAI's API, and types the response directly into the chat box. Inspired by the Michael Reeves's video "[A Bot that Scams People](https://www.youtube.com/watch?v=LwOITqr_fz4)", this project combines browser scripting with Python automation utilities.
 
 ![Screenshot of extension](img/screenshot.png)
 
