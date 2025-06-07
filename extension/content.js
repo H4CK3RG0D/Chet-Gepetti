@@ -27,7 +27,12 @@
 
         for (const link of links) {
             const text = (link.querySelector('span.x193iq5w, span') || link).textContent.trim();
-            if (!text || text.toLowerCase().includes('browse all') || text.toLowerCase().includes('see more')) {
+            if (
+                !text ||
+                text.toLowerCase().includes('seller details') ||
+                text.toLowerCase().includes('browse all') ||
+                text.toLowerCase().includes('see more')
+            ) {
                 continue; // skip navigation links
             }
 

@@ -6,8 +6,10 @@ import time
 import json
 
 options = uc.ChromeOptions()
-options.add_argument(r"--user-data-dir=C:\Path\To\Your\Chrome\User Data")  # replace with your real path
-options.add_argument("--profile-directory=Default")
+
+options.add_argument(r"--user-data-dir=C:\Users\heint\chrome-bot-profile")
+options.add_argument("--profile-directory=Profile 2")
+options.add_argument("--no-first-run")
 driver = uc.Chrome(options=options)
   # Refresh after loading cookies
 

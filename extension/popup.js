@@ -80,34 +80,40 @@ async function loadApiKey() {
 async function autoTypeMessage(tabId, msg) {
     try {
         await chrome.scripting.executeScript({
-            target: { tabId: tabId },
+            target: { tabId },
             func: (messageToType) => {
-                // Locate the message box. Facebook occasionally tweaks the placeholder
-                // text, so check by aria-label first and fall back to a more generic query.
-                const textarea =
+                // Locate the message box. Facebook frequently changes the DOM,
+                // so search for a textarea first and fall back to a contenteditable div.
+                let inputEl =
                     document.querySelector('textarea[aria-label="Send seller a message"]') ||
                     document.querySelector('textarea[placeholder^="Send a"]');
 
-                if (!textarea) {
-                    console.warn("❌ Textarea not found on Marketplace page.");
-                    return; // Don't proceed if textarea is not found
+                if (!inputEl) {
+                    inputEl =
+                        document.querySelector('div[contenteditable="true"][aria-label="Message"]') ||
+                        document.querySelector('div[contenteditable="true"][role="textbox"]');
                 }
 
-                textarea.focus();
-                // Simulate native input for React-based textareas
-                const nativeInputSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
-                nativeInputSetter?.call(textarea, messageToType);
-                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                if (!inputEl) {
+                    console.warn('❌ Message input not found on Marketplace page.');
+                    return; // Abort if no element found
+                }
 
-                // Optionally, dispatch Enter key to send the message
-                textarea.dispatchEvent(new KeyboardEvent('keydown', {
-                    key: 'Enter',
-                    code: 'Enter',
-                    keyCode: 13,
-                    which: 13,
-                    bubbles: true
-                }));
-                console.log("✅ Chet's message injected and sent.");
+                inputEl.focus();
+
+                if (inputEl.tagName === 'TEXTAREA') {
+                    const setter = Object.getOwnPropertyDescriptor(
+                        window.HTMLTextAreaElement.prototype,
+                        'value'
+                    )?.set;
+                    setter?.call(inputEl, messageToType);
+                } else {
+                    inputEl.textContent = messageToType;
+                }
+
+                inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+
+                console.log("✅ Chet's message injected.");
             },
             args: [msg]
         });
