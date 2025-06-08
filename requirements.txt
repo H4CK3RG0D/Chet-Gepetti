@@ -3,3 +3,4 @@ python-dotenv
 pyautogui
 undetected-chromedriver
 selenium
+
