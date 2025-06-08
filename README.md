@@ -6,20 +6,18 @@ Chet-Gepetti is a tongue-in-cheek Chrome extension that roasts Facebook Marketpl
 ![Screenshot of extension](img/screenshot.png)
 
 ## Table of Contents
-- [Chet-Gepetti](#chet-gepetti)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Repository structure](#repository-structure)
-  - [Getting started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Setting up the extension](#setting-up-the-extension)
-    - [Python utilities](#python-utilities)
-  - [Requirements](#requirements)
-    - [OpenAI Key](#openai-key)
-  - [License](#license)
-  - [Contributing](#contributing)
-  - [Acknowledgements](#acknowledgements)
-
+- [Features](#features)
+- [Repository structure](#repository-structure)
+- [Getting started](#getting-started)
+- [Requirements](#requirements)
+- [OpenAI Integration](#openai-integration)
+  - [OpenAI Key](#openai-key)
+  - [Model Selection](#model-selection)
+  - [Personalization](#personalization)
+  - [Prompt Content](#prompt-content)
+- [License](#license)
+- [Contributing](#contributing)
+- [Acknowledgements](#acknowledgements)
 
 ## Features
 
@@ -127,7 +125,7 @@ The prompt used to generate the responses contains the information scraped from 
   "price": "Item Price",
   "description": "Item Description",
   "Specs": "about_structured"
-  }
+}
 ```
 where `about_structured` is data of the item, such as its condition, brand, model, title, miles, etc. This structured data scrapes any data available as a list. There is also a sentence at the end of the prompt that instructs the AI "As Chet Gepetti", which if you are using a different personality will be overridden by that instruction. I suggest you change the name if you are using a different personality, as it will make the responses more coherent and aligned with the character you want to portray.
 
