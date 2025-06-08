@@ -43,15 +43,10 @@ Chet-Gepetti/
 
 ### Setting up the extension
 
-1. Install the CSS build tool:
-   ```bash
-   cd extension
-   npm install
-   npx tailwindcss -i input.css -o styles/tailwind_base.css
-   ```
-2. In Chrome, open **chrome://extensions** and load the `extension/` folder as an unpacked extension.
-3. Click the Chet Gepetti icon, open the settings gear, and paste your OpenAI API key.
-4. Browse to a Facebook Marketplace listing and hit **Gaslight**.
+
+1. In Chrome, open **chrome://extensions** and load the `extension/` folder as an unpacked extension.
+2. Click the Chet Gepetti icon, open the settings gear, and paste your OpenAI API key.
+3. Browse to a Facebook Marketplace listing and hit the **Gaslight** button and let it do the work for you.
 
 ### Python utilities
 
@@ -67,6 +62,11 @@ python-dotenv
 pyautogui
 undetected-chromedriver
 selenium
+```
+You can install them using the `requirements.txt` file:
+
+```bash
+pip install -r requirements.txt
 ```
 
 ## License
